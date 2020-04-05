@@ -1,4 +1,9 @@
 - name: network configuration changed
   service:
-    name: "networking"
+    name: networking
+    state: restarted
+
+- name: docker configuration changed
+  service:
+    name: docker
     state: restarted

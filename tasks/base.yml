@@ -39,13 +39,7 @@
   copy:
     src: files/daemon.json
     dest: /etc/docker/daemon.json
-  register: docker_conf
-
-- name: Linux Server | Base | Restarting docker
-  service:
-    name: docker
-    state: restarted
-  when: docker_conf.changed
+  notify: docker configuration changed
 
 - name: Linux Server | Base | Install custom bashrc
   copy:
