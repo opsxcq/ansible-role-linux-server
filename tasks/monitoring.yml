@@ -56,4 +56,4 @@
     restart_policy: unless-stopped
     memory: '128m'
     published_ports:
-      - "9101:8080"
+      - 9101:8080
