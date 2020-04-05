@@ -8,4 +8,4 @@ before_install:
 install:
   - pip install molecule docker ansible ansible-lint
 script:
-  - ansible-lint -x 401,405,204 .
+  - ansible-lint -x 401,405,204,301,305 .
