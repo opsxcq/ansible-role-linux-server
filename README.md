@@ -32,6 +32,11 @@ This is an example playbook
     - ../..
 ```
 
+Optional variables:
+
+ - `network.cidr`: default value is `/24`
+ - `static_hosts`: if not present, won't change `/etc/hosts`
+
 # Requirements file
 
 ```yml
