@@ -7,10 +7,15 @@
       - gpg
       - pass
 
+
+- name: Linux Server | Security | Download GPG keys
+  get_url: url=https://github.com/{{ github_user }}.gpg dest=tmp/gpg
+
 - name: Linux Server | Security | Install GPG keys
-  shell: curl https://github.com/{{ github_user }}.gpg | gpg --import
+  shell: gpg --import /tmp/gpg
+
+- name: Linux Server | Security | Cleanup GPG keys
+  file: path=/tmp/gpg state=absent
 
 - name: Linux Server | Security | Install SSH keys
-  get_url:
-    url: https://github.com/{{ github_user }}.keys
-    dest: /root/.ssh/authorized_keys
+  get_url: url=https://github.com/{{ github_user }}.keys dest=/root/.ssh/authorized_keys
