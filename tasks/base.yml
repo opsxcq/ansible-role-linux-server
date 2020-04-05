@@ -14,6 +14,7 @@
       - tmux
       - docker.io
       - python-docker
+      - rsync
       - lvm2
 
 - name: Linux Server | Base | Configure tmux
