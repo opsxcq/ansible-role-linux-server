@@ -8,7 +8,9 @@
       - pass
 
 - name: Linux Server | Security | Install GPG keys
-  shell: curl https://github.com/{{github_user}}.gpg | gpg --import
+  shell: curl https://github.com/{{ github_user }}.gpg | gpg --import
 
 - name: Linux Server | Security | Install SSH keys
-  shell: curl https://github.com/{{github_user}}.keys > ~/.ssh/authorized_keys
+  get_url:
+    url: https://github.com/{{ github_user }}.keys
+    dest: /root/.ssh/authorized_keys
