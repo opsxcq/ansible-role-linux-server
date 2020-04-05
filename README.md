@@ -3,10 +3,10 @@
 Role that install a generic setup for a Debian linux:
 
  - Docker
- - Monitoring with prometheus
+ - Monitoring with prometheus (node exporter + cAdvisor)
  - Kernel parameters
  - Basic tools and packages
- - Import of ssh keys, gpg keys and known hosts
+ - Import of ssh keys and gpg keys from github
  
 # Example playbook
 
@@ -14,20 +14,22 @@ This is an example playbook
 
 
 ```yml
-- hosts: my-server
+- hosts: all
   vars:
-    hostname: "server.strm.sh"
-    ip: "192.168.0.16"
+    hostname: "template"
+    domain: "strm.sh"
+    network:
+      ip: "192.168.0.9"
+      cidr: "/24"
+      gateway: "192.168.0.1"
+      dns: "8.8.8.8"
     static_hosts: "{{ lookup('file', 'hosts') }}"
-    gpg: "{{ lookup('file', 'gpg.pub') }}"
-    ssh:
-      authorized_keys: "{{ lookup('file', 'authorized_keys') }}"
-      known_hosts: "{{ lookup('file', 'known_hosts') }}"
+    github_user: opsxcq
   tasks:
   - debug:
         msg: "Your other tasks here"
   roles:
-    - opsxcq.linux_server
+    - ../..
 ```
 
 # Requirements file
