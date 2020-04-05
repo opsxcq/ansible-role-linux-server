@@ -1,0 +1,53 @@
+# Basic server packages
+
+- name: Linux Server | Base | Update apt cache
+  apt:
+    update_cache: yes
+
+- name: Linux Server | Base | Install packages
+  apt:
+    state: present
+    name:
+      - git
+      - wget
+      - curl
+      - tmux
+      - docker.io
+      - python-docker
+      - lvm2
+
+- name: Linux Server | Base | Configure tmux
+  copy:
+    src: files/tmux.conf
+    dest: /root/.tmux.conf
+
+- name: Linux Server | Base | Create directory structure
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0775
+  with_items:
+    - /data/
+    - /data/tmp
+    - /data/docker
+    - /data/backup
+    - /config/
+
+- name: Linux Server | Base | Deploy Docker daemon.json
+  copy:
+    src: files/daemon.json
+    dest: /etc/docker/daemon.json
+  register: docker_conf
+
+- name: Linux Server | Base | Restarting docker
+  service:
+    name: docker
+    state: restarted
+  when: docker_conf.changed
+
+- name: Linux Server | Base | Install custom bashrc
+  copy:
+    src: files/bashrc
+    dest: /root/.bashrc

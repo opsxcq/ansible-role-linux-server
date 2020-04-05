@@ -1,0 +1,4 @@
+- name: network configuration changed
+  service:
+    name: "networking"
+    state: restarted

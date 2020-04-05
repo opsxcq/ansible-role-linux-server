@@ -1,0 +1,61 @@
+# Server monitoring packages and containers
+
+- name: Linux Server | Monitoring | Install packages
+  apt:
+    state: present
+    name:
+      - htop
+      - slurm
+      - iotop
+      - dstat
+
+- name: Linux Server | Monitoring | Create directory structure
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0775
+  with_items:
+    - /data/file-exporter
+
+# Start node-exporter container, point to file exporter directory
+# Start docker-exporter containers
+
+- name: Linux Server | Monitoring | Setup node exporter
+  docker_container:
+    hostname: "{{ hostname + '.' + domain}}"
+    name: prometheus-exporter-node
+    image: prom/node-exporter
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command: 
+      - '--path.procfs=/host/proc' 
+      - '--path.sysfs=/host/sys'
+      - --collector.filesystem.ignored-mount-points
+      - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)"
+    state: started
+    restart_policy: unless-stopped
+    memory: '32m'
+    ports:
+      - 9100:9100
+
+- name: Linux Server | Monitoring | Setup cAdvisor
+  docker_container:
+    hostname: "{{ hostname + '.' + domain}}"
+    name: prometheus-exporter-cadvisor
+    image: gcr.io/google-containers/cadvisor
+    volumes:
+      - "/:/rootfs:ro"
+      - "/var/run:/var/run:rw"
+      - "/sys:/sys:ro"
+      - "/var/lib/docker/:/var/lib/docker:ro"
+      - "/dev/disk/:/dev/disk:ro"
+    privileged: true
+    state: started
+    restart_policy: unless-stopped
+    memory: '128m'
+    published_ports:
+      - "9101:8080"

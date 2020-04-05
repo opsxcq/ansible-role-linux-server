@@ -1,0 +1,8 @@
+---
+# Linux server main task
+
+- include: base.yml
+- include: networking.yml
+- include: kernel.yml
+- include: security.yml
+- include: monitoring.yml

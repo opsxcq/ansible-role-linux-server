@@ -1,0 +1,14 @@
+# Security
+
+- name: Linux Server | Security | Install packages
+  apt:
+    state: present
+    name:
+      - gpg
+      - pass
+
+- name: Linux Server | Security | Install GPG keys
+  shell: curl https://github.com/{{github_user}}.gpg | gpg --import
+
+- name: Linux Server | Security | Install SSH keys
+  shell: curl https://github.com/{{github_user}}.keys > ~/.ssh/authorized_keys

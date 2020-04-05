@@ -1,0 +1,29 @@
+# Server networking configuration, packages and containers
+
+- name: Linux Server | Networking | Install packages
+  apt:
+    state: present
+    name:
+      - tcpdump
+      - resolvconf
+
+- name: Linux Server | Networking | Configure /etc/hosts
+  copy:
+    dest: "{{ test_prefix_dir | default('/etc') }}/hosts"
+    content: "{{ static_hosts }}"
+  when: static_hosts is defined
+
+- name: Linux Server | Networking | Configure static address
+  debug:
+    msg: "Setting static IP on interface {{ ansible_default_ipv4.interface }}"
+
+- name: Linux Server | Networking | Configure static address
+  template:
+    src: interfaces.j2
+    dest: "{{ test_prefix_dir | default('/etc/network') }}/interfaces"
+  notify:
+  - network configuration changed
+
+- name: Linux Server | Networking | Configure hostname
+  hostname:
+    name: "{{ hostname }}"

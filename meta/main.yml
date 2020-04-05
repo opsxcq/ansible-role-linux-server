@@ -1,0 +1,14 @@
+galaxy_info:
+  author: OPSXCQ
+  role_name: linux_server
+  description: Linux server configuration
+  company: STRM
+  license: GPLv3
+  min_ansible_version: 2.4
+  platforms:
+   - name: Debian
+     versions:
+       - jessie
+       - stretch
+       - buster
+  galaxy_tags: [linux, server]
