@@ -9,7 +9,7 @@
 
 
 - name: Linux Server | Security | Download GPG keys
-  get_url: url=https://github.com/{{ github_user }}.gpg dest=tmp/gpg
+  get_url: url=https://github.com/{{ github_user }}.gpg dest=/tmp/gpg
 
 - name: Linux Server | Security | Install GPG keys
   shell: gpg --import /tmp/gpg
