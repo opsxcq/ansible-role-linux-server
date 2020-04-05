@@ -19,9 +19,6 @@
   with_items:
     - /data/file-exporter
 
-# Start node-exporter container, point to file exporter directory
-# Start docker-exporter containers
-
 - name: Linux Server | Monitoring | Setup node exporter
   docker_container:
     hostname: "{{ hostname + '.' + domain }}"
@@ -31,6 +28,7 @@
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
       - /:/rootfs:ro
+      - /data/file-exporter:/file-exporter
     command: 
       - '--path.procfs=/host/proc' 
       - '--path.sysfs=/host/sys'
