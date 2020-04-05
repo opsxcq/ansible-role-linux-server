@@ -24,7 +24,7 @@
 
 - name: Linux Server | Monitoring | Setup node exporter
   docker_container:
-    hostname: "{{ hostname + '.' + domain}}"
+    hostname: "{{ hostname + '.' + domain }}"
     name: prometheus-exporter-node
     image: prom/node-exporter
     volumes:
@@ -44,7 +44,7 @@
 
 - name: Linux Server | Monitoring | Setup cAdvisor
   docker_container:
-    hostname: "{{ hostname + '.' + domain}}"
+    hostname: "{{ hostname + '.' + domain }}"
     name: prometheus-exporter-cadvisor
     image: gcr.io/google-containers/cadvisor
     volumes:
