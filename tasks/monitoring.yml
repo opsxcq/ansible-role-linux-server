@@ -24,6 +24,7 @@
     hostname: "{{ hostname + '.' + domain }}"
     name: prometheus-exporter-node
     image: prom/node-exporter:master
+    network_mode: host
     volumes:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
