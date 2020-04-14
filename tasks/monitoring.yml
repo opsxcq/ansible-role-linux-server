@@ -23,17 +23,17 @@
   docker_container:
     hostname: "{{ hostname + '.' + domain }}"
     name: prometheus-exporter-node
-    image: prom/node-exporter
+    image: prom/node-exporter:master
     volumes:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
       - /:/rootfs:ro
       - /data/file-exporter:/file-exporter
     command:
-      - '--path.procfs=/host/proc'
-      - '--path.sysfs=/host/sys'
-      - --collector.filesystem.ignored-mount-points
-      - "^/(dev|proc|sys|var/lib/docker/(containers|devicemapper)/.+)($|/)"
+      - "--path.procfs=/host/proc"
+      - "--path.sysfs=/host/sys"
+      - "--collector.textfile.directory"
+      - "/file-exporter"
     state: started
     restart_policy: unless-stopped
     memory: '32m'
