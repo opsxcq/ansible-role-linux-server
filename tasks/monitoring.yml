@@ -25,6 +25,7 @@
     name: prometheus-exporter-node
     image: prom/node-exporter:master
     network_mode: host
+    pid_mode: host
     volumes:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
