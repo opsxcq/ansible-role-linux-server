@@ -33,7 +33,7 @@
       - '--path.procfs=/host/proc'
       - '--path.sysfs=/host/sys'
       - --collector.filesystem.ignored-mount-points
-      - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)"
+      - "^/(dev|proc|sys|var/lib/docker/(containers|devicemapper)/.+)($|/)"
     state: started
     restart_policy: unless-stopped
     memory: '32m'
