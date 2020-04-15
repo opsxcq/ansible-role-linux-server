@@ -68,7 +68,7 @@
     privileged: true
     state: started
     restart_policy: unless-stopped
-    memory: '128m'
+    memory: '96m'
     published_ports:
       - 9101:8080
 
@@ -99,7 +99,7 @@
     state: started
     restart: true
     restart_policy: unless-stopped
-    memory: '128m'
+    memory: '32m'
     published_ports:
       - 9080:9080
   when: loki is defined
