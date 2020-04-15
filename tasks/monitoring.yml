@@ -21,7 +21,7 @@
 
 - name: Linux Server | Monitoring | Add docker plugin for remote logs
   command: docker plugin install  grafana/loki-docker-driver:latest --alias loki --grant-all-permissions
-  ignore_errors: yes
+  ignore_errors: True
   notify: docker configuration changed
   when: loki is defined
 
