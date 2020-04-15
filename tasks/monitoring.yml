@@ -72,6 +72,11 @@
   notify: docker configuration changed
   when: loki is defined
 
+- name: Linux Server | Monitoring | Create promtail volume
+  docker_volume:
+    name: "promtail-storage"
+  when: loki is defined
+
 - name: Linux Server | Monitoring | Setup promtail
   docker_container:
     hostname: "{{ hostname + '.' + domain }}"
@@ -82,6 +87,7 @@
       - "/run/log/journal/:/run/log/journal/"
       - "/etc/machine-id:/etc/machine-id"
       - "/config/promtail.yml:/etc/promtail.yml"
+      - "promtail-storage:/promtail"
     command: "-config.file=/etc/promtail.yml"
     state: started
     restart: true
