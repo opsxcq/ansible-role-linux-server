@@ -1,0 +1,17 @@
+{
+    "graph": "/data/docker",
+{% if loki is defined %}
+    "log-driver": "loki",
+    "log-opts": {
+        "loki-url": "{{ loki.url }}",
+        "loki-batch-size": "5000",
+        "loki-retries": "5"
+    }
+{% else %}
+    "log-driver": "json-file",
+    "log-opts": {
+        "max-size": "10m",
+        "max-file": "3"
+    }
+{% endif %}
+}
