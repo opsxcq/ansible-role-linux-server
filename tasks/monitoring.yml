@@ -19,6 +19,12 @@
   with_items:
     - /data/file-exporter
 
+# TODO : Check if the log plugin is installed, if is
+#docker plugin disable loki
+#docker plugin upgrade loki grafana/loki-docker-driver:master
+#docker plugin enable loki
+# and restart docker
+
 - name: Linux Server | Monitoring | Add docker plugin for remote logs
   command: docker plugin install  grafana/loki-docker-driver:latest --alias loki --grant-all-permissions
   ignore_errors: True
