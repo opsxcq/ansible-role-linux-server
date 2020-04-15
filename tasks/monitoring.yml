@@ -19,6 +19,11 @@
   with_items:
     - /data/file-exporter
 
+- name: Linux Server | Monitoring | Add docker plugin for remote logs
+  command: docker plugin install  grafana/loki-docker-driver:latest --alias loki --grant-all-permissions
+  notify: docker configuration changed
+  when: loki is defined
+
 - name: Linux Server | Monitoring | Setup node exporter
   docker_container:
     hostname: "{{ hostname + '.' + domain }}"
@@ -59,3 +64,29 @@
     memory: '128m'
     published_ports:
       - 9101:8080
+
+- name: Linux Server | Monitoring | Setup promtail configuration
+  template:
+    src: docker-daemon.j2
+    dest: "{{ test_prefix_dir | default('/config/' }}/promtail.yml"
+  notify: docker configuration changed
+  when: loki is defined
+
+- name: Linux Server | Monitoring | Setup promtail
+  docker_container:
+    hostname: "{{ hostname + '.' + domain }}"
+    name: promtail
+    image: grafana/promtail:latest
+    volumes:
+      - "/var/log/journal/:/var/log/journal/"
+      - "/run/log/journal/:/run/log/journal/"
+      - "/etc/machine-id:/etc/machine-id"
+      - "/config/promtail.yml:/etc/promtail.yml"
+    command: "-config.file=/etc/promtail.yml"
+    state: started
+    restart: true
+    restart_policy: unless-stopped
+    memory: '128m'
+    published_ports:
+      - 9080:9080
+  when: loki is defined

@@ -38,9 +38,9 @@
     - /config/
 
 - name: Linux Server | Base | Deploy Docker daemon.json
-  copy:
-    src: files/daemon.json
-    dest: /etc/docker/daemon.json
+  template:
+    src: docker-daemon.j2
+    dest: "{{ test_prefix_dir | default('/etc/docker' }}/daemon.json"
   notify: docker configuration changed
 
 - name: Linux Server | Base | Install custom bashrc

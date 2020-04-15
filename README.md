@@ -24,6 +24,8 @@ This is an example playbook
       gateway: "192.168.0.1"
       dns: "8.8.8.8"
     static_hosts: "{{ lookup('file', 'hosts') }}"
+    loki:
+      url: 'http://loki.strm.sh:3100/loki/api/v1/push'
     github_user: opsxcq
   tasks:
   - debug:
@@ -34,8 +36,10 @@ This is an example playbook
 
 Optional variables:
 
- - `network.cidr`: default value is `/24`
- - `static_hosts`: if not present, won't change `/etc/hosts`
+ - `network.cidr`: default value is `/24`.
+ - `static_hosts`: if not present, won't change `/etc/hosts`.
+ - `loki`: When defined will configure the system and container logs to be
+   shipped to loki.
 
 # Requirements file
 
