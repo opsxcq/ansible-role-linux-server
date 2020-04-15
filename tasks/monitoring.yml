@@ -68,7 +68,7 @@
 
 - name: Linux Server | Monitoring | Setup promtail configuration
   template:
-    src: docker-daemon.j2
+    src: promtail.j2
     dest: "{{ test_prefix_dir | default('/config/') }}/promtail.yml"
   notify: docker configuration changed
   when: loki is defined
