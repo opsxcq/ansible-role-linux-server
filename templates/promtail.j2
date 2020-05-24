@@ -14,6 +14,41 @@ scrape_configs:
     - targets:
         - localhost
       labels:
+        job: vmware_guest_logs
+        __path__: /var/log/vmware*.log
+    - targets:
+        - localhost
+      labels:
+        job: messages
+        __path__: /var/log/messages
+    - targets:
+        - localhost
+      labels:
+        job: syslog
+        __path__: /var/log/syslog
+    - targets:
+        - localhost
+      labels:
+        job: user_logs
+        __path__: /var/log/user.log
+    - targets:
+        - localhost
+      labels:
+        job: daemon_logs
+        __path__: /var/log/daemon.log
+    - targets:
+        - localhost
+      labels:
+        job: kernel_logs
+        __path__: /var/log/kern.log
+    - targets:
+        - localhost
+      labels:
+        job: auth_logs
+        __path__: /var/log/auth.log
+    - targets:
+        - localhost
+      labels:
         job: varlogs
         __path__: /var/log/*log
   - job_name: journal

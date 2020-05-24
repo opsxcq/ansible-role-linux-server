@@ -52,3 +52,12 @@ Optional variables:
 
 Tmux is added to this setup, but with a difference that it uses `Ctrl+A`, so you
 can keep a tmux session (using `Ctrl+B`) locally connected to a tmux remotely.
+
+# Monitoring
+
+Alongside the monitoring tools like prometheus, there are some tools which help
+you to monitor the resource usage locally.
+
+- **htop**
+- **iostat -x 1** - shows real time io data
+- **slurm -i ens192** - shows real time network stats for the interface *ens192*

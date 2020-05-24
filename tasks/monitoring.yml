@@ -8,6 +8,7 @@
       - slurm
       - iotop
       - dstat
+      - sysstat
 
 - name: Linux Server | Monitoring | Create directory structure
   file:
