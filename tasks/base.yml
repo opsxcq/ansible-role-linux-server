@@ -34,7 +34,7 @@
     - /data/
     - /data/tmp
     - /data/docker
-    - /data/backup
+    - /data/backups
     - /config/
 
 - name: Linux Server | Base | Deploy Docker daemon.json
