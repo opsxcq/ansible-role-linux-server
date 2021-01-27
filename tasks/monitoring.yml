@@ -20,12 +20,13 @@
   with_items:
     - /data/file-exporter
 
-- name: verify if loki docker plug-in is installed
+# checking for docker/loki presence and installing/updating accordingly
+- name: Linux Server | Monitoring | verify if loki docker plug-in is installed
   shell: if [ $(docker plugin ls | grep -o loki | wc -c) -eq 5 ]; then echo "present"; else echo "absent"; fi
   register: loki_state
   when: loki is defined
 
-- name: install loki docker plug-in
+- name: Linux Server | Monitoring | install loki docker plug-in
   shell: docker plugin install grafana/loki-docker-driver:latest --alias loki --grant-all-permissions
   when: loki is defined and loki_state.stdout == 'absent'
 
@@ -46,12 +47,6 @@
 - name: enabling loki docker plug-in
   shell: docker plugin enable loki
   when: loki is defined and loki_state.stdout == 'present' and (loki_enabled.stdout|d('false')) == 'false'
-
-- name: Linux Server | Monitoring | Add docker plugin for remote logs
-  command: docker plugin install  grafana/loki-docker-driver:latest --alias loki --grant-all-permissions
-  ignore_errors: True
-  notify: docker configuration changed
-  when: loki is defined
 
 - name: Linux Server | Monitoring | Setup node exporter
   docker_container:
