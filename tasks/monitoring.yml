@@ -21,30 +21,30 @@
     - /data/file-exporter
 
 # checking for docker/loki presence and installing/updating accordingly
-- name: Linux Server | Monitoring | verify if loki docker plug-in is installed
+- name: Linux Server | Monitoring | Check if Loki plug-in for Docker is present
   shell: if [ $(docker plugin ls | grep -o loki | wc -c) -eq 5 ]; then echo "present"; else echo "absent"; fi
   register: loki_state
   when: loki is defined
 
-- name: Linux Server | Monitoring | install loki docker plug-in
+- name: Linux Server | Monitoring | Install Loki plug-in for Docker
   shell: docker plugin install grafana/loki-docker-driver:latest --alias loki --grant-all-permissions
   when: loki is defined and loki_state.stdout == 'absent'
 
-- name: check if loki docker plug-in is enabled
+- name: Linux Server | Monitoring | Check if Loki plug-in for Docker is enabled
   shell: if [ $(docker plugin ls | grep -o true) ]; then echo true; else echo false; fi
   register: loki_enabled
   when: loki is defined and loki_state.stdout == 'present'
 
-- name: disabling loki docker plug-in
+- name: Linux Server | Monitoring | Disable Loki plug-in for Docker
   shell: if [ $(docker plugin disable loki | grep -o loki | wc -c) -eq 5 ]; then echo "false"; else echo "true"; fi
   register: loki_enabled
   when: loki is defined and loki_state.stdout == 'present' and loki_enabled.stdout == 'true'
 
-- name: upgrading loki docker plug-in
+- name: Linux Server | Monitoring | Upgrade Loki plug-in for Docker
   shell: docker plugin upgrade loki grafana/loki-docker-driver:latest --grant-all-permissions
   when: loki is defined and loki_state.stdout == 'present' and (loki_enabled.stdout|d('false')) == 'false'
 
-- name: enabling loki docker plug-in
+- name: Linux Server | Monitoring | Enable Loki plug-in for Docker
   shell: docker plugin enable loki
   when: loki is defined and loki_state.stdout == 'present' and (loki_enabled.stdout|d('false')) == 'false'
 
