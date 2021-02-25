@@ -39,6 +39,7 @@
     image: prom/node-exporter:master
     network_mode: host
     pid_mode: host
+    pull: true
     volumes:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
@@ -47,6 +48,7 @@
     command:
       - "--path.procfs=/host/proc"
       - "--path.sysfs=/host/sys"
+      - "--no-collector.mdadm"
       - "--collector.textfile.directory"
       - "/file-exporter"
     state: started
