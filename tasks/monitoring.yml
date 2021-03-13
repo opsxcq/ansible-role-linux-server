@@ -68,6 +68,10 @@
       - "/sys:/sys:ro"
       - "/var/lib/docker/:/var/lib/docker:ro"
       - "/dev/disk/:/dev/disk:ro"
+    command: 
+      - "--housekeeping_interval=60s"
+      - "--docker_only=true"
+      - "--disable_metrics=disk,network,tcp,udp,percpu,sched,process"
     privileged: true
     state: started
     restart_policy: unless-stopped
