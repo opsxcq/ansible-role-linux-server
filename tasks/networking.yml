@@ -21,6 +21,7 @@
   template:
     src: interfaces.j2
     dest: "{{ test_prefix_dir | default('/etc/network') }}/interfaces"
+  when: network is defined
   notify:
   - network configuration changed
 
