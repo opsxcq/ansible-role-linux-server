@@ -51,6 +51,7 @@
       - "--no-collector.mdadm"
       - "--collector.textfile.directory"
       - "/file-exporter"
+      - "--path.rootfs=/rootfs"
     state: started
     restart_policy: unless-stopped
     memory: '32m'
