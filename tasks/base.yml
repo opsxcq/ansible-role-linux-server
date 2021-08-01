@@ -18,6 +18,7 @@
       - rsync
       - cryptsetup
       - lvm2
+      - mergerfs
 
 - name: Linux Server | Base | Configure tmux
   copy:
