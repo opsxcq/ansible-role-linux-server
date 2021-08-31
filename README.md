@@ -23,13 +23,20 @@ This is an example playbook
       cidr: "/24"
       gateway: "192.168.0.1"
       dns: "8.8.8.8"
+      extra_ips:
+      - "192.168.0.2"
+      - "192.168.0.3"
+      - "192.168.0.4"
+      extra_raw: |-
+        iface tun0 inet static
+          address 10.0.0.8/24
     static_hosts: "{{ lookup('file', 'hosts') }}"
     loki:
       url: 'http://loki.strm.sh:3100/loki/api/v1/push'
     github_user: opsxcq
   tasks:
   - debug:
-        msg: "Your other tasks here"
+      msg: "Your other tasks here"
   roles:
     - ../..
 ```

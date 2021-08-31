@@ -15,3 +15,10 @@ iface {{ ansible_default_ipv4.interface }} inet static
 	gateway {{ network.gateway }}
 	dns-nameservers {{ network.dns }}
 	dns-search {{ domain }}
+
+{% for extra_ip for network.extra_ips %}
+iface {{ ansible_default_ipv4.interface }} inet static
+	address {{ extra_ip }}{{ network.cidr | default('/24') }}
+{% endfor %}
+
+{{ network.raw_extra }}

@@ -119,15 +119,9 @@ if ! shopt -oq posix; then
   fi
 fi
 
-function watch-disk-usage() {
-  watch -n 5 'df -h / /data /disk1 /disk2 /mass'
-}
-
 export PS1="#"
 
 set -o vi
-
-alias emacs='emacsclient -nw'
 
 alias l='ls -lha'
 alias q='cd ..; l'
