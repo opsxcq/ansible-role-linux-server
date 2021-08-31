@@ -21,4 +21,6 @@ iface {{ ansible_default_ipv4.interface }} inet static
 	address {{ extra_ip }}{{ network.cidr | default('/24') }}
 {% endfor %}
 
-{{ network.raw_extra }}
+{% if network.raw_extra is defined %}
+  {{ network.raw_extra }}
+{% endif %}
