@@ -25,6 +25,12 @@
   notify:
   - network configuration changed
 
+- name: Linux Server | Networking | Configure DNS
+  template:
+    src: dns.j2
+    dest: "{{ test_prefix_dir | default('/etc/resolvconf/resolv.conf.d') }}/base"
+  when: network is defined
+
 - name: Linux Server | Networking | Configure hostname
   hostname:
     name: "{{ hostname }}"

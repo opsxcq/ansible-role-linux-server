@@ -22,7 +22,9 @@ This is an example playbook
       ip: "192.168.0.9"
       cidr: "/24"
       gateway: "192.168.0.1"
-      dns: "8.8.8.8"
+      dns:
+      - "8.8.8.8"
+      - "1.1.1.1"
       extra_ips:
       - "192.168.0.2"
       - "192.168.0.3"
