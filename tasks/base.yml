@@ -13,7 +13,7 @@
       - curl
       - tmux
       - docker.io
-      - python-docker
+      - python3-docker
       - rclone
       - rsync
       - cryptsetup
